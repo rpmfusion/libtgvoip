@@ -1,6 +1,6 @@
 Name: libtgvoip
-Version: 2.1.1
-Release: 2%{?dist}
+Version: 2.2
+Release: 1%{?dist}
 Summary: VoIP library for Telegram clients
 
 # Libtgvoip shared library - Public Domain.
@@ -10,6 +10,10 @@ URL: https://github.com/grishka/%{name}
 
 Source0: %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0: %{name}-build-fixes.patch
+
+# Temporary backported from upstream patches.
+Patch100: %{name}-crash-fix.patch
+Patch101: %{name}-addidional-fixes.patch
 
 Provides: bundled(webrtc-audio-processing) = 0.3
 BuildRequires: pulseaudio-libs-devel
@@ -47,7 +51,6 @@ popd
 # Installing shared library...
 mkdir -p "%{buildroot}%{_libdir}"
 install -m 0755 -p out/Release/lib.target/%{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so.%{version}"
-ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so.2.1"
 ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so.2"
 ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so"
 
@@ -55,8 +58,6 @@ ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so"
 mkdir -p "%{buildroot}%{_includedir}/%{name}/audio"
 find . -maxdepth 1 -type f -name "*.h" -exec install -m 0644 -p '{}' %{buildroot}%{_includedir}/%{name} \;
 find audio -maxdepth 1 -type f -name "*.h" -exec install -m 0644 -p '{}' %{buildroot}%{_includedir}/%{name}/audio \;
-
-%ldconfig_scriptlets
 
 %files
 %license UNLICENSE
@@ -67,8 +68,8 @@ find audio -maxdepth 1 -type f -name "*.h" -exec install -m 0644 -p '{}' %{build
 %{_libdir}/%{name}.so
 
 %changelog
-* Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+* Fri Jul 20 2018 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2-1
+- Updated to 2.2 (regular release).
 
 * Mon Jul 02 2018 Vitaly Zaitsev <vitaly@easycoding.org> - 2.1.1-1
 - Updated to 2.1.1 (regular release).
