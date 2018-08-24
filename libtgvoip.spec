@@ -1,6 +1,6 @@
 Name: libtgvoip
-Version: 2.2
-Release: 2%{?dist}
+Version: 2.2.3
+Release: 1%{?dist}
 Summary: VoIP library for Telegram clients
 
 # Libtgvoip shared library - Public Domain.
@@ -10,10 +10,6 @@ URL: https://github.com/grishka/%{name}
 
 Source0: %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0: %{name}-build-fixes.patch
-
-# Temporary backported from upstream patches.
-Patch100: %{name}-crash-fix.patch
-Patch101: %{name}-addidional-fixes.patch
 
 Provides: bundled(webrtc-audio-processing) = 0.3
 BuildRequires: pulseaudio-libs-devel
@@ -51,6 +47,7 @@ popd
 # Installing shared library...
 mkdir -p "%{buildroot}%{_libdir}"
 install -m 0755 -p out/Release/lib.target/%{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so.%{version}"
+ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so.2.2"
 ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so.2"
 ln -s %{name}.so.%{version} "%{buildroot}%{_libdir}/%{name}.so"
 
@@ -68,8 +65,8 @@ find audio -maxdepth 1 -type f -name "*.h" -exec install -m 0644 -p '{}' %{build
 %{_libdir}/%{name}.so
 
 %changelog
-* Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.2-2
-- Rebuilt for Fedora 29 Mass Rebuild binutils issue
+* Fri Aug 24 2018 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2.3-1
+- Updated to 2.2.3 (regular release).
 
 * Fri Jul 20 2018 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2-1
 - Updated to 2.2 (regular release).
