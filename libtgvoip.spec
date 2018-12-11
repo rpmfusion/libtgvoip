@@ -12,6 +12,7 @@ Source0: %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0: %{name}-build-fixes.patch
 
 Provides: bundled(webrtc-audio-processing) = 0.3
+
 BuildRequires: pulseaudio-libs-devel
 BuildRequires: alsa-lib-devel
 BuildRequires: openssl-devel
