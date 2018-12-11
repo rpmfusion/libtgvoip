@@ -1,6 +1,6 @@
 Name: libtgvoip
 Version: 2.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: VoIP library for Telegram clients
 
 # Libtgvoip shared library - Public Domain.
@@ -10,6 +10,7 @@ URL: https://github.com/grishka/%{name}
 
 Source0: %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0: %{name}-build-fixes.patch
+Patch100: %{name}-sse2.patch
 
 Provides: bundled(webrtc-audio-processing) = 0.3
 
@@ -68,6 +69,9 @@ find video -maxdepth 1 -type f -name "*.h" -exec install -m 0644 -p '{}' %{build
 %{_libdir}/%{name}.so
 
 %changelog
+* Tue Dec 11 2018 Vitaly Zaitsev <vitaly@easycoding.org> - 2.4-2
+- Backported upstream patch with crash and build fixes.
+
 * Tue Dec 11 2018 Vitaly Zaitsev <vitaly@easycoding.org> - 2.4-1
 - Updated to 2.4 (regular release).
 
