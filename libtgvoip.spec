@@ -1,3 +1,7 @@
+%ifarch %{arm}
+%define _lto_cflags %{nil}
+%endif
+
 %global commit0 8682c5c22e9c3a28ee3aacfd1d529db07ea914bf
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global date 20200521
